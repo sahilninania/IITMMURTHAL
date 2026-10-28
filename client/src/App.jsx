@@ -1,6 +1,17 @@
 
 import { useState } from "react";
-import MedicalReportAnalyzer from "./components/MedicalReportAnalyzer";
+
+
+import PersonalHealthChat from "./components/PersonalHealthChat.jsx";
+import MedicalReportAnalyzer from "./components/MedicalReportAnalyzer.jsx";
+import PatientHealthMonitor from "./components/PatientHealthMonitor.jsx";
+import HealthReminders from "./components/HealthReminders";
+import PatientDemoData from "./components/PatientDemoData";
+import DoctorHealthAnalysis from "./components/DoctorHealthAnalysis";
+import GeneticHealthDemo from "./components/GeneticHealthDemo";
+import AppointmentPage from "./pages/AppointmentPage";
+import DoctorAppointmentRequests from "./pages/DoctorAppointmentRequests";
+import "./pages/appointments.css";
 import {
   Activity, ArrowRight, Bell, BrainCircuit, Building2,
   CalendarDays, CheckCircle2, ChevronRight, ClipboardList,
@@ -8,6 +19,7 @@ import {
   LockKeyhole, LogOut, Menu, MessageCircle, Search,
   ShieldCheck, Stethoscope, UserRound, Users, X,
 } from "lucide-react";
+ 
 
 const API_URL =
   import.meta.env.VITE_API_URL || "http://localhost:5000/api";
@@ -504,7 +516,7 @@ function DashboardLayout({ user, onLogout, children }) {
   );
 }
 
-function PatientDashboard({ user, onLogout }) {
+function PatientDashboard({ user, onLogout, setPage }) {
   return (
     <DashboardLayout user={user} onLogout={onLogout}>
       <div className="rounded-3xl bg-gradient-to-r from-teal-800 to-teal-600 p-7 text-white sm:p-10">
@@ -512,6 +524,18 @@ function PatientDashboard({ user, onLogout }) {
         <h1 className="mt-3 text-3xl font-black sm:text-4xl">Your care, all in one place.</h1>
         <p className="mt-3 max-w-2xl text-sm leading-6 text-teal-50">Hello, {user?.name || "Demo patient"}. View your care tasks and appointment information here.</p>
       </div>
+      <div className="mt-6">
+        <button
+          type="button"
+          onClick={() => setPage("appointments")}
+          className="rounded-xl bg-teal-700 px-5 py-3 font-bold text-white hover:bg-teal-800"
+        >
+          <CalendarDays size={17} className="mr-2 inline" />
+          Book Appointment
+        </button>
+      </div>
+
+      
       <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard icon={CalendarDays} label="Upcoming visits" value="2" detail="Illustrative data" />
         <StatCard icon={FileText} label="Reports available" value="3" tone="blue" detail="Illustrative data" />
@@ -527,14 +551,20 @@ function PatientDashboard({ user, onLogout }) {
           <p className="mt-4 rounded-xl bg-slate-50 p-3 text-xs leading-5 text-slate-500">Not for emergencies or diagnosis. Confirm medical decisions with your clinician.</p>
         </div>
       </div>
+      <PatientDemoData />
+      <GeneticHealthDemo role="patient" />
+      <HealthReminders />
+      
+      <PatientHealthMonitor />
       <section className="mt-8" aria-label="Medical report analysis">
         <MedicalReportAnalyzer />
       </section>
+      <PersonalHealthChat role="patient" />
     </DashboardLayout>
   );
 }
 
-function DoctorDashboard({ user, onLogout }) {
+function DoctorDashboard({ user, onLogout, setPage }) {
   return (
     <DashboardLayout user={user} onLogout={onLogout}>
       <div className="flex flex-wrap items-center justify-between gap-4">
@@ -544,6 +574,16 @@ function DoctorDashboard({ user, onLogout }) {
           <p className="mt-2 text-sm text-slate-500">Welcome, Dr. {user?.name || user?.username || "Doctor"}. Review assigned tasks and care coordination.</p>
         </div>
         <span className="rounded-full bg-blue-50 px-4 py-2 text-xs font-bold text-blue-700"><ShieldCheck size={14} className="mr-1 inline" /> Authorized staff portal</span>
+      </div>
+      <div className="mt-5">
+        <button
+          type="button"
+          onClick={() => setPage("doctor-appointments")}
+          className="rounded-xl bg-teal-700 px-5 py-3 font-bold text-white hover:bg-teal-800"
+        >
+          <CalendarDays size={17} className="mr-2 inline" />
+          View Appointment Requests
+        </button>
       </div>
       <div className="mt-7 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <StatCard icon={Users} label="Assigned patients" value="32" detail="Demo data" />
@@ -559,7 +599,11 @@ function DoctorDashboard({ user, onLogout }) {
           <div className="mt-5 flex items-start gap-3 rounded-xl bg-amber-50 p-4 text-sm leading-6 text-amber-800"><Bell size={19} className="mt-0.5 shrink-0" /> Demo alerts only. Review clinical context before taking action.</div>
         </div>
       </div>
+      <DoctorHealthAnalysis />
+      <GeneticHealthDemo role="doctor" />
+      <PersonalHealthChat role="doctor" />
     </DashboardLayout>
+
   );
 }
 
@@ -596,6 +640,7 @@ function HospitalDashboard({ user, onLogout }) {
           <p className="mt-3 text-xs leading-5 text-slate-400">Illustrative department figures. Real metrics require connected backend data.</p>
         </div>
       </div>
+      <PersonalHealthChat role="receptionist" />
     </DashboardLayout>
   );
 }
@@ -627,9 +672,9 @@ export default function App() {
   }
 
   function dashboard() {
-    if (user?.role === "doctor") return <DoctorDashboard user={user} onLogout={logout} />;
+    if (user?.role === "doctor") return <DoctorDashboard user={user} onLogout={logout} setPage={setPage} />;
     if (user?.role === "hospital") return <HospitalDashboard user={user} onLogout={logout} />;
-    return <PatientDashboard user={user} onLogout={logout} />;
+    return <PatientDashboard user={user} onLogout={logout} setPage={setPage} />;
   }
 
   return (
@@ -643,6 +688,40 @@ export default function App() {
       )}
       {page === "dashboard" && user && dashboard()}
       {page === "dashboard" && !user && <PortalLogin onBack={() => setPage("home")} onLogin={handleLogin} />}
+
+      {page === "appointments" && user?.role === "patient" && (
+        <DashboardLayout user={user} onLogout={logout}>
+          <button type="button" onClick={() => setPage("dashboard")} className="mb-5 rounded-lg border border-slate-200 bg-white px-4 py-2 font-semibold hover:bg-slate-50">
+            ← Back to Dashboard
+          </button>
+          <AppointmentPage />
+        </DashboardLayout>
+      )}
+
+      {page === "doctor-appointments" && user?.role === "doctor" && (
+        <DashboardLayout user={user} onLogout={logout}>
+          <button type="button" onClick={() => setPage("dashboard")} className="mb-5 rounded-lg border border-slate-200 bg-white px-4 py-2 font-semibold hover:bg-slate-50">
+            ← Back to Dashboard
+          </button>
+          <DoctorAppointmentRequests />
+        </DashboardLayout>
+      )}
+
+      {(page === "appointments" || page === "doctor-appointments") && !user && (
+        <PortalLogin onBack={() => setPage("home")} onLogin={handleLogin} />
+      )}
+
+      {page === "appointments" && user && user.role !== "patient" && (
+        <DashboardLayout user={user} onLogout={logout}>
+          <p className="rounded-xl bg-amber-50 p-5 font-semibold text-amber-800">This page is available to patient accounts only.</p>
+        </DashboardLayout>
+      )}
+
+      {page === "doctor-appointments" && user && user.role !== "doctor" && (
+        <DashboardLayout user={user} onLogout={logout}>
+          <p className="rounded-xl bg-amber-50 p-5 font-semibold text-amber-800">This page is available to doctor accounts only.</p>
+        </DashboardLayout>
+      )}
     </div>
   );
 }

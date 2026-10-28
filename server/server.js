@@ -22,9 +22,19 @@ app.get("/api/health", (req, res) => {
   res.json({ status: "ok" });
 });
 
+const patientHealthRoutes = require("./routes/patientHealth");
+
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/dashboard", require("./routes/dashboard"));
 app.use("/api/medical-reports", require("./routes/medicalReports"));
+app.use("/api/chat", require("./routes/chat"));
+app.use("/api/health", patientHealthRoutes);
+app.use("/api/doctor/health", require("./routes/doctorHealth"));
+app.use("/api/appointments", require("./routes/appointments"));
+
+
+
+
 
 app.use((req, res) => {
   res.status(404).json({ message: "Route not found" });

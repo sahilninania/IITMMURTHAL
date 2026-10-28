@@ -1,0 +1,158 @@
+
+.dha {
+  display: grid;
+  gap: 18px;
+  margin: 24px 0;
+  color: #172033;
+}
+
+.dha-header,
+.dha-analysis-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.dha-header h2,
+.dha-card h3 {
+  margin-top: 0;
+}
+
+.dha-header p,
+.dha-card p {
+  line-height: 1.55;
+}
+
+.dha-card {
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+  min-width: 0;
+}
+
+.dha-card > span,
+.dha-grid .dha-card > span {
+  display: block;
+  margin-bottom: 10px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.dha-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.dha-grid strong {
+  overflow-wrap: anywhere;
+}
+
+.dha-label {
+  font-weight: 600;
+}
+
+.dha select {
+  width: 100%;
+  max-width: 500px;
+  padding: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 9px;
+  background: #fff;
+  font: inherit;
+}
+
+.dha button {
+  padding: 10px 14px;
+  border: 0;
+  border-radius: 9px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  font: inherit;
+}
+
+.dha button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.dha-error {
+  padding: 12px;
+  border-radius: 8px;
+  background: #fef2f2;
+  color: #b91c1c;
+}
+
+.dha-table-wrap {
+  overflow-x: auto;
+}
+
+.dha-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.dha-table th,
+.dha-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.dha-table th {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.dha-analysis {
+  max-height: 420px;
+  overflow: auto;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  padding: 16px;
+  border-radius: 10px;
+  background: #f8fafc;
+  font: inherit;
+  line-height: 1.6;
+}
+
+.dha-muted,
+.dha-disclaimer {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.dha-item {
+  padding: 14px 0;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.dha-item p {
+  margin: 7px 0;
+}
+
+.dha-item span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+@media (max-width: 850px) {
+  .dha-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .dha-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .dha-card {
+    padding: 15px;
+  }
+}

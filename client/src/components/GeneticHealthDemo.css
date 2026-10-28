@@ -1,0 +1,181 @@
+
+.genetic-demo {
+  display: grid;
+  gap: 18px;
+  margin: 24px 0;
+  color: #172033;
+}
+
+.gd-banner {
+  padding: 12px 16px;
+  border-radius: 10px;
+  background: #fff7ed;
+  color: #9a3412;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.gd-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #fff;
+}
+
+.gd-profile,
+.gd-section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.gd-profile h2 {
+  margin: 8px 0;
+}
+
+.gd-label,
+.gd-stats span {
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gd-pill {
+  padding: 7px 10px;
+  border-radius: 8px;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 12px;
+}
+
+.gd-stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.gd-stats strong {
+  display: block;
+  margin: 10px 0;
+  font-size: 22px;
+  overflow-wrap: anywhere;
+}
+
+.gd-stats small {
+  color: #64748b;
+  font-size: 11px;
+}
+
+.gd-card h3 {
+  margin-top: 0;
+}
+
+.gd-table-wrap {
+  overflow-x: auto;
+}
+
+.gd-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.gd-table th,
+.gd-table td {
+  padding: 12px;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.gd-table th {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.gd-warning {
+  margin: 14px 0;
+  padding: 12px;
+  border-radius: 8px;
+  background: #fff7ed;
+  color: #9a3412;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.gd-variant {
+  padding: 14px 0;
+  border-bottom: 1px solid #e2e8f0;
+  line-height: 1.5;
+}
+
+.gd-variant p {
+  margin: 7px 0;
+  font-size: 14px;
+}
+
+.gd-observation {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 12px 0;
+}
+
+.gd-observation span {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  background: #eff6ff;
+  color: #1d4ed8;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.gd-observation p {
+  margin: 3px 0;
+  line-height: 1.6;
+}
+
+.gd-doctor-note {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 10px;
+  background: #f8fafc;
+  line-height: 1.6;
+}
+
+.gd-card button {
+  padding: 9px 13px;
+  border: 0;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+}
+
+.gd-disclaimer {
+  color: #64748b;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+@media (max-width: 800px) {
+  .gd-stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .gd-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .gd-card {
+    padding: 15px;
+  }
+}
