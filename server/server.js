@@ -6,9 +6,18 @@ const connectDB = require("./config/db");
 
 const app = express();
 
-app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:5173",
-}));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://jeevanrakshakai.vercel.app",
+];
+
+app.use(
+  cors({
+    origin: allowedOrigins,
+    methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+  })
+);
 app.use(express.json({ limit: "100kb" }));
 
 app.get("/", (req, res) => {
